@@ -1,8 +1,9 @@
 import { AiFillEye, AiTwotoneDelete } from 'react-icons/ai';
 import { BiEditAlt } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-const CoffeeCard = ({ coffee }) => {
+const CoffeeCard = ({ coffee , coffees , setCoffees }) => {
   const { _id, name, quantity, supplier, taste, category, details, photo } = coffee;
 
   const handleDelete = (_id) => {
@@ -27,7 +28,9 @@ const CoffeeCard = ({ coffee }) => {
                 title: "Deleted!",
                 text: "Your Coffee has been deleted.",
                 icon: "success"
-              });
+              })
+              const remaining = coffees.filter(cof => cof._id !== _id);
+              setCoffees(remaining);
             }
           });
       }
@@ -50,7 +53,7 @@ const CoffeeCard = ({ coffee }) => {
         </div>
         <div className="card-actions justify-end grid grid-rows-1 gap-y-2">
           <button className="btn btn-primary bg-green-950"><AiFillEye /></button>
-          <button className="btn btn-primary bg-slate-950"><BiEditAlt /></button>
+          <Link to={`updateCoffee/${_id}`}><button className="btn btn-primary bg-slate-950"><BiEditAlt /></button></Link>
           <button
             onClick={() => handleDelete(_id)}
             className="btn btn-primary bg-red-700"

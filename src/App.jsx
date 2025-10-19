@@ -1,11 +1,14 @@
 import { useLoaderData } from 'react-router-dom';
 import './app.css';
 import CoffeeCard from './components/CoffeeCard';
+import { useState } from 'react';
 
 
 const App = () => {
 
-    const coffees = useLoaderData();
+    const loadedcoffees = useLoaderData();
+    const [coffees , setCoffees] = useState(loadedcoffees);
+
 
 
 
@@ -15,7 +18,7 @@ const App = () => {
             <h2 className='text-center'>Coding restarted for COFFEE ☕</h2>
             <p className='text-center'>Total coffee order {coffees.length}</p>
 
-          <div className='grid md:grid-cols-2 gap-y-2'>  {coffees.map(coffee => <CoffeeCard key={coffee._id} coffee={coffee} ></CoffeeCard>)}  </div>
+          <div className='grid md:grid-cols-2 gap-y-2'>  {coffees.map(coffee => <CoffeeCard key={coffee._id} coffee={coffee} coffees={coffees} setCoffees={setCoffees} ></CoffeeCard>)}  </div>
         </div>
     );
 };
